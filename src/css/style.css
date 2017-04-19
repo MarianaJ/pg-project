@@ -1,0 +1,20 @@
+@media (max-width: 768px) {
+   #video iframe {
+	   width: 530px;
+	   height: 298px;
+   }
+}
+
+@media (max-width: 480px) {
+   #video iframe {
+	   height: 225px;
+	   width: 400px;
+   }
+}
+
+@media (max-width: 360px) {
+   #video iframe {
+	   height: 169px;
+	   width: 300px;
+   }
+}
