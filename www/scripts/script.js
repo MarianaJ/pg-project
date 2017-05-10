@@ -49,8 +49,7 @@ $(document).on("pageshow", "#map-page", function () {
         };
         var map = new google.maps.Map(document.getElementById("map-area"), myOptions);
         addMarker(latlng);//start marker your pos
-
-        console.log(markers[0].getPosition().lat(), markers[0].getPosition().lng());
+    
         var mlat = markers[0].getPosition().lat(),
             mlong = markers[0].getPosition().lng();
 
