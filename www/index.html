@@ -22,12 +22,14 @@
         <div data-role="content">
             <div id="logo"><img src="images/logo.png" alt=""></div>
             <div data-role="controlgroup" data-type="vertical">
+                <a href="#postlist" data-role="button">Urzędy</a>
+                <a href="#notes" data-role="button">Twoje notaki</a>
                 <a href="#map-page" data-role="button">Znajdź na mapie</a>
             </div>
         </div>
     </div>
     <!--  MAIN PAGE END -->
-    <!--FINF ON MAP -->
+    <!--FIND ON MAP -->
     <div data-role="page" id="map-page">
         <div data-role="panel" id="mappanel" data-display="overlay">
             <label for="user">Miasto</label>
@@ -55,6 +57,79 @@
         </div>
     </div>
     <!-- FIND ON MAP END-->
+    <!--LIST OF POSTS START-->
+    <div id="postlist" data-role="page" data-title="Urzędy">
+        <div data-role="header">
+            <h1>Urzędy</h1>
+            <a href="#home" data-icon="home" data-iconpos="notext" data-theme="a">Start</a>
+        </div>
+        <div data-role="content" class="ui-content" id="postlist-wrapper">
+            <!--list will be here-->
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#op1" data-icon="arrow-r" data-theme="a">Opcja1</a></li>
+                    <li><a href="#op2" data-icon="arrow-r" data-theme="a">Opcja2</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--LIST OF POSTS END-->
+    <!--NOTES START-->
+    <div data-role="page" id="notes">
+        <div data-role="header" data-position="fixed">
+            <a href="#home" data-icon="back" data-role="button" class="ui-btn-left" data-theme="a">Wróć</a>
+            <h1>Twoje notatki</h1>
+            <a href="#add" data-icon="plus" data-iconpos="notext" class="ui-btn-right" data-transition="">New</a>
+        </div>
+        <div data-role="content">
+            <ul data-role="listview" class="todo-listview"></ul>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="content">
+
+            </div>
+        </div>
+    </div>
+
+    <!--NOTES END-->
+    <!-- ADD PAGE START -->
+    <div data-role="page" id="add">
+        <div data-role="header" data-position="fixed">
+            <a href="#view" data-icon="back" data-role="button" class="ui-btn-left" data-theme="a" transition="fade">Wróć</a>
+            <h1>Dodaj notatkę</h1>
+        </div>
+        <div data-role="content">
+            <form method="" action="" id="insert">
+                <label for="title">Tytuł:</label>
+                <input type="text" name="title" id="text-basic" value="">
+
+                <label for="description">Opis:</label>
+                <textarea cols="40" rows="8" name="description" id="text-basic"></textarea>
+            </form>
+            <a href="" data-role="button" class="add" data-transition="fade">Dodaj</a>
+        </div>
+    </div>
+    <!-- NOTE VIEV END -->
+    <!-- NOTE VIEW START -->
+    <div data-role="page" id="view">
+        <div data-role="header" data-position="fixed">
+            <a href="#notes" data-icon="back" data-role="button" class="ui-btn-left" data-theme="a">Wróć</a>
+            <h1>View</h1>
+            <a href="#add" data-icon="plus" data-iconpos="notext" class="ui-btn-right" data-transition="fade">New</a>
+        </div>
+        <div data-role="content">
+            <form id="edit">
+                <input type="hidden" id="id" value="" name="id" />
+                <input type="text" id="title" value="" data-id="" class="target" name="title" />
+                <textarea id="description" data-id="" class="target" name="description"></textarea>
+            </form>
+            <a href="#notes" data-role="button" class="delete">Delete</a>
+        </div>
+    </div>
+    <!-- NOTE VIEW END -->
 
 
 
