@@ -163,3 +163,120 @@ $(document).on("pageshow", "#map-page", function () {
 });
 
 
+/*HERE IS  A NOTES SCRIPTS*/
+
+
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
+var app = {
+
+    findAll: function() {
+
+        this.store.findAll(function(todos) {
+            var l = todos.length;
+            var td;
+
+            // Create new arrays so we can order them with outstanding first
+            outstanding = [];
+            completed = [];
+            allTodos = [];
+
+            // Loop through todos, build up lis and push to arrays
+            for (var i=0; i<l; i++) {
+                td = todos[i];
+
+                // If not completed
+                if (td.status == 0) {
+                    outstanding.push('<li data-row-id="' + td.id + '" class="outstanding"><a href="#view" data-transition="fade" class="view" data-view-id="' + td.id +'"><h2>' + td.title+ '</h2><p>' + td.description + '</p></a><a href="#" data-icon="check" data-iconpos="notext" class="mark-completed" data-theme="a" data-mark-id="' + td.id +'">Mark as completed</a></li>');
+                }
+                // If is completed
+                else {
+                    completed.push('<li data-row-id="' + td.id + '" class="completed"><a href="#view" data-transition="fade" class="view" data-view-id="' + td.id +'"><h2>' + td.title+ '</h2><p>' + td.description + '</p></a><a href="#" data-icon="delete" data-iconpos="notext" class="mark-outstanding" data-theme="a" data-mark-id="' + td.id +'">Mark as outstanding</a></li>');
+                }
+            }
+
+            // Join both arrays
+            allTodos = outstanding.concat(completed);
+
+            // Remove any previously appended
+            $('.todo-listview li').remove();
+
+            // Append built up arrays to ULs here.
+            $('.todo-listview').append(allTodos);            
+
+            // Refresh JQM listview
+            $('.todo-listview').listview('refresh');
+        });
+    },
+
+    findById: function(id) {
+        
+        this.store.findById(id, function(result) {
+
+            console.log(result);
+            console.log(result.title);
+            console.log(result.description);
+
+            // Add the results data to the required form fields here
+            $('#title').val(result.title);
+            $('#title').attr('data-id', id);
+            $('#description').val(result.description);
+            $('#id').val(id);
+        });
+    },
+     initialize: function() {
+
+        // Create a new store
+        this.store = new WebSqlDB();
+
+        // Bind all events here when the app initializes
+        $(document).on('pagebeforeshow', '#notes', function(event) {
+            app.findAll();
+        });
+
+        $(document).on('click', '.view', function(event) {
+            app.findById($(this).data('view-id'))
+        });
+
+        $(document).on('click', '.add', function(event) {
+            var data = JSON.stringify($('#insert').serializeObject()); 
+            app.insert(data);
+        });
+
+        $(document).on('change', '.target', function(event) {
+            var data = JSON.stringify($('#edit').serializeObject()); 
+            app.update(data);
+        });
+
+        $(document).on('click', '.delete', function(event) {
+            var data = JSON.stringify($('#edit').serializeObject()); 
+            app.delete(data);
+        });
+
+        $(document).on('click', '.mark-completed', function(event) {
+            app.markCompleted($(this).data('mark-id'));
+        });
+
+        $(document).on('click', '.mark-outstanding', function(event) {
+            app.markOutstanding($(this).data('mark-id'));
+        });
+    }
+
+};
+
+app.initialize();
