@@ -26,6 +26,7 @@
                 <a href="#postlist" data-role="button">Urzędy</a>
                 <a href="#notes" data-role="button">Twoje notaki</a>
                 <a href="#map-page" data-role="button">Znajdź na mapie</a>
+                <a href="#" data-role="button">Najczęstsze problemy </a>
             </div>
         </div>
     </div>
@@ -41,7 +42,7 @@
 
         </div>
         <div data-role="header" data-theme="a">
-            <h1>Maps App</h1>
+            <h1>Znajdź na mapie</h1>
             <a href="#home" data-icon="home" data-iconpos="notext" data-theme="a">Start</a>
         </div>
         <div role="content" class="ui-content" id="map-area">
@@ -116,13 +117,13 @@
             <a href="" data-role="button" class="add" data-transition="fade">Dodaj</a>
         </div>
     </div>
-    <!-- NOTE VIEV END -->
+    <!-- NOTE VIEW END -->
     <!-- NOTE VIEW START -->
     <div data-role="page" id="view">
         <div data-role="header" data-position="fixed">
             <a href="#notes" data-icon="back" data-role="button" class="ui-btn-left" data-theme="a">Wróć</a>
             <h1>View</h1>
-            <a href="#add" data-icon="plus" data-iconpos="notext" class="ui-btn-right" data-transition="fade">New</a>
+            <a href="#add" data-icon="plus" data-iconpos="notext" class="ui-btn-right" data-transition="fade"></a>
         </div>
         <div data-role="content">
             <form id="edit">
@@ -130,11 +131,50 @@
                 <input type="text" id="title" value="" data-id="" class="target" name="title" />
                 <textarea id="description" data-id="" class="target" name="description"></textarea>
             </form>
-            <a href="#notes" data-role="button" class="delete">Delete</a>
+            <a href="#notes" data-role="button" class="delete">Usuń</a>
         </div>
     </div>
     <!-- NOTE VIEW END -->
+    <!-- POST LIST START -->
+    <div id="post" data-role="page">
+            <div data-role="header">
+                <h1>Opis</h1>
+                <a href="#postlist" data-icon="back" data-theme="a">Wróć</a>
+            </div>
+			
+<!--one post info-->			
+ <div data-role="content" id="post-wrapper">
+    <ul  id="post-list" data-role="listview" data-inset="true" data-divider-theme="a">
+        <li data-role="list-divider"><b>Adres</b></li>
+        <li data-icon="false"><a href="#" id='adres'></a></li>
+        <li data-role="list-divider"><b>Godziny otwarcia</b></li>
+        <li data-icon="false"><a href="#" id='openhours'></a></li>
+        <li data-role="list-divider"><b>E-mail</b></li>
+        <li data-icon="false"><a href="#" id='email'></a></li>
+        <li data-role="list-divider"><b>Strona urzędu</b></li>
+        <li data-icon="false"><a id='pageurl'></a></li>
+        <li data-role="list-divider"><b>Telefon kontaktowy</b></li>
+        <li data-icon="false"><a href="#" id='phone1'></a></li>
+        <li data-icon="false"><a href="#" id='phone2'></a></li>
+        <li data-role="list-divider"><b>Pozostałe informacje</b></li>
+        <li data-icon="false"><a href="#" id='elseinf'></a></li>
+    </ul>
 
+        </div>
+        <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a id="gomap" href="#map-page" data-icon="arrow-r"data-theme="a">Przejdź do mapy</a></li>
+                        <li><a id="gopage" href="#" data-icon="arrow-r"data-theme="a">Strona urzędu</a></li>                    
+                    </ul>
+                </div>
+            </div>
+        </div>
+<!-- POST LIST END-->
+
+	
+	
+	
 
 </body>
 
