@@ -239,6 +239,98 @@ var app = {
             $('#id').val(id);
         });
     },
+	
+	
+  markCompleted: function(id) {
+
+        this.store.markCompleted(id, function(result) {
+            // DB updates successful
+            if(result) {
+                // Find original row and grab details
+                var originalRow =  $('#notes *[data-row-id="'+id+'"]'),
+                    title = originalRow.find("h2").text(),
+                    desc = originalRow.find("p").text();
+                // Remove from pending row
+                originalRow.remove();
+                var newRow = '<li data-row-id="' + id + '" class="completed"><a href="#view" data-transition="fade" class="view" data-view-id="' + id +'"><h2>' + title + '</h2><p>' + desc + '</p></a><a href="#" data-icon="delete"  data-iconpos="notext" class="mark-outstanding"   data-theme="a"data-mark-id="' + id +'">Mark as outstanding</a></li>';
+
+                // Add to completed
+                $('.todo-listview').append(newRow);
+
+                // Refresh dom
+                $('.todo-listview').listview('refresh');
+
+            } else {
+                alert("Error - on update");
+            }
+        });
+    },
+
+    markOutstanding: function(id) {
+
+        this.store.markOutstanding(id, function(result) {
+
+            if(result) {
+                var originalRow =  $('*[data-row-id="'+id+'"]'),
+                    title = originalRow.find("h2").text(),
+                    desc = originalRow.find("p").text();
+
+                originalRow.remove();
+                var newRow = '<li data-row-id="' + id + '" class="outstanding"><a href="#view" data-transition="fade" class="view" data-view-id="' + id +'"><h2>' + title + '</h2><p>' + desc + '</p></a><a href="#" data-icon="check" data-iconpos="notext" class="mark-completed" data-theme="a" data-mark-id="' + id +'"  data-theme="a">Mark as completed</a></li>';
+
+                $('.todo-listview').prepend(newRow);
+                $('.todo-listview').listview('refresh');
+
+            } 
+        });
+    },
+
+    insert: function(json) {
+        this.store.insert(json, function(result) {
+            // On successful db insert
+            if(result) {
+                console.log("add ok");
+                $.mobile.changePage( $("#notes"), {
+                    transition: "fade",
+                    reverse: true,
+                    changeHash: true,
+                });
+
+            } else {
+                alert("Błąd dodawania");
+            }
+        });
+    },
+
+    update: function(json) {
+        this.store.update(json, function(result) {
+            if(result) {
+               console.log("update ok");
+            } else {
+                alert("Błąd w odświeżani");
+            }
+        });
+    },
+
+    delete: function(json) {
+        this.store.delete(json, function(result) {
+
+            // On successful db delete
+            if(result) {
+                console.log("delete ok");
+
+                $.mobile.changePage( $("#notes"), {
+                    transition: "fade",
+                    reverse: true,
+                    changeHash: true
+                });
+
+            } else {
+                alert("Błąd w usuwaniu");
+            }
+        });
+    },
+		
      initialize: function() {
 
         // Create a new store
