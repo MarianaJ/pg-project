@@ -336,7 +336,6 @@ var app = {
         // Create a new store
         this.store = new WebSqlDB();
 
-        // Bind all events here when the app initializes
         $(document).on('pagebeforeshow', '#notes', function(event) {
             app.findAll();
         });
@@ -372,3 +371,92 @@ var app = {
 };
 
 app.initialize();
+
+/*HERE IS  A END NOTES */
+
+
+/*HERE IS  A START OF POSTS  */
+
+$(document).on( "pageshow", "#postlist", function() {
+
+
+ajaxget("http://192.168.223.1/server/get_json.php", function(data){
+      var html = '<ul data-role="listview" class="ui-listview">';
+  $.each(data.posts,function(k,v){//keyvalue
+                
+                    html += '<li class="outstanding ui-btn ui-btn-icon-right ui-li ui-li-has-alt ui-first-child ui-btn-up-c" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div"  data-theme="c">';
+                    html +='<div class="ui-btn-inner ui-li ui-li-has-alt">'
+                    html +='<div class="ui-btn-text">'
+                    html += '<a href="#post" class="ui-link-inherit keyval" data-keyval='+ v.id+'>'
+                    html += '<h3 class="ui-li-heading">' + v.title + '</h3>';
+                    html += '<p class="ui-li-desc">' + v.address + '</p>';
+                    html += '</a>'
+                    html +='</div>'
+                    html +='</div>'
+                    html += '</li>';                 
+                });
+                html += '</ul>';
+                $('#postlist-wrapper').html(html);
+
+      
+        $('.keyval').each(function(){
+            this.addEventListener('click', function(){
+        
+         loadPost(this.getAttribute("data-keyval"));
+        });
+        });
+       
+});
+
+});
+
+ function loadPost(id){
+   var pom= parseInt(id);
+
+   $('#post-wrapper h4').remove();
+   $('#email').empty();
+   $('#adres').empty();
+   $('#openhours').empty();
+   $('#pageurl').empty();
+   $('#phone1').empty();
+   $('#phone2').empty();
+   $('#elseinf').empty();
+
+   ajaxget("http://192.168.223.1/server/get_json.php", function (data) {
+       $('<h4>' + data.posts[pom].title + '</h4>').prependTo('#post-wrapper');
+       $('<p>' + data.posts[pom].email + '</p>').appendTo('#email');
+       $('<p>' + data.posts[pom].address + '</p>').appendTo('#adres');
+       $('<p>' + data.posts[pom].openhours + '</p>').appendTo('#openhours');
+       $('<p>' + data.posts[pom].link + '</p>').appendTo('#pageurl');
+       $('<p>' + data.posts[pom].phone1 + '</p>').appendTo('#phone1');
+       $('<p>' + data.posts[pom].phone2 + '</p>').appendTo('#phone2');
+       $('<p>' + data.posts[pom].else + '</p>').appendTo('#elseinf');
+        trgtvalue = ''+ data.posts[pom].title;
+        trgtvalue = trgtvalue.replace(/<\/br>/g,'');
+
+        trgturl ='http:\/\/'+data.posts[pom].link;
+
+
+    });
+
+  }
+
+function ajaxget(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if( xhr.readyState == 4 && xhr.status == 200) {
+                //console.log('responseText:' + xhr.responseText);
+                try {
+                    var data = JSON.parse(xhr.responseText);
+                } catch(err) {
+                    console.log(err.message + " in " + xhr.responseText);
+                    return;
+                }
+                callback(data);
+            // console.log(data);
+            }
+    };
+        xhr.open("GET", url, true);
+        xhr.send();
+
+};
