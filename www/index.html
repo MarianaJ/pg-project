@@ -12,6 +12,7 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyC4jYphqNX5squ3UPJ5wZC9W32_ohsbcUM&libraries=places&calback=initmap"></script>
     <script async defer src="scripts/web-sql-storage.js"></script>
     <script async defer src="scripts/script.js"></script> 
+    <script type="text/javascript" src="cordova.js"></script>
 </head>
 
 <body>
@@ -26,7 +27,7 @@
                 <a href="#postlist" data-role="button">Urzędy</a>
                 <a href="#notes" data-role="button">Twoje notaki</a>
                 <a href="#map-page" data-role="button">Znajdź na mapie</a>
-                <a href="#" data-role="button">Najczęstsze problemy </a>
+                <a href="#problemlist" data-role="button">Najczęstsze problemy </a>
             </div>
         </div>
     </div>
@@ -52,36 +53,14 @@
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar">
                 <ul>
-                    <li><a href="#op1" data-icon="arrow-r" data-theme="a">Opcja1</a></li>
-                    <li><a href="#op2" data-icon="arrow-r" data-theme="a">Opcja2</a></li>
+                    <li><a  class="ui-btn"href="#postlist" data-icon="info" data-theme="a">Urzędy</a></li>
+                    <li><a  class="ui-btn ui-btn-inline ui-btn-b" href="#" id="clearm" data-icon="refresh" data-theme="a" data-transition="fade">Wyczyść wyszukiwanie</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <!-- FIND ON MAP END-->
-    <!--LIST OF POSTS START-->
-    <div id="postlist" data-role="page" data-title="Urzędy">
-        <div data-role="header">
-            <h1>Urzędy</h1>
-            <a href="#home" data-icon="home" data-iconpos="notext" data-theme="a">Start</a>
-        </div>
-        <div data-role="content" class="ui-content" id="postlist-wrapper">
-            <!--list will be here-->
-        </div>
-        <div data-role="footer" data-position="fixed">
-
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="#op1" data-icon="arrow-r" data-theme="a">Opcja1</a></li>
-                    <li><a href="#op2" data-icon="arrow-r" data-theme="a">Opcja2</a></li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-
-
-    <!--LIST OF POSTS END-->
+    
     <!--NOTES START-->
     <div data-role="page" id="notes">
         <div data-role="header" data-position="fixed">
@@ -118,6 +97,8 @@
         </div>
     </div>
     <!-- NOTE VIEW END -->
+
+
     <!-- NOTE VIEW START -->
     <div data-role="page" id="view">
         <div data-role="header" data-position="fixed">
@@ -135,7 +116,23 @@
         </div>
     </div>
     <!-- NOTE VIEW END -->
-    <!-- POST LIST START -->
+
+<!--LIST OF POSTS START-->
+    <div id="postlist" data-role="page" data-title="Urzędy">
+        <div data-role="header">
+            <h1>Urzędy</h1>
+            <a href="#home" data-icon="home" data-iconpos="notext" data-theme="a">Start</a>
+        </div>
+        <div data-role="content" class="ui-content" id="postlist-wrapper">
+            <!--list will be here-->
+        </div>
+
+    </div>
+
+
+    <!--LIST OF POSTS END-->
+    
+    <!-- ONR POST  START -->
     <div id="post" data-role="page">
             <div data-role="header">
                 <h1>Opis</h1>
@@ -171,8 +168,55 @@
             </div>
         </div>
 <!-- POST LIST END-->
+       
+<!--PROBLEM LIST START-->
+<div id="problemlist" data-role="page" data-title="Problemy">
+    <div data-role="header">
+        <h3>Wybrane problemy</h3>
+        <a href="#home" data-icon="home" data-iconpos="notext" data-theme="a">Start</a>
+    </div>
+    <div data-role="content" class="ui-content" id="problemlist-wrapper">
+    </div>
+</div>
+<!-- PROBLEM LIST END-->
 
-	
+<!-- ONE PROBLEM START-->
+<div id="problem" data-role="page">
+    <div data-role="header">
+        <h1></h1>
+        <a href="#problemlist" data-icon="back" data-theme="a">Wróć</a>
+    </div>
+    <div data-role="content" id="problem-wrapper">
+        <ul id="problem-list" data-role="listview" data-inset="true" data-divider-theme="a">
+            <li data-role="list-divider"><b>Jednostka odpowiedzialna</b></li>
+            <li data-icon="false"id="prob-post"></li>
+            <li data-role="list-divider"><b>Dokumenty do pobrania</b></li>
+            <li data-icon="false"id="prob-doc-download"></li>
+            <li data-icon="false"id="prob-doc-link"></li>
+            <li data-role="list-divider"><b>Opis sprawy</b></li>
+            <li data-icon="false" id="prob-description"></li>
+            <li data-role="list-divider"><b>Wymagane dokumenty</b></li>
+            <li data-icon="false"id="prob-documents"></li>
+            <li data-role="list-divider"><b>Uwagi</b></li>
+            <li data-icon="false" id="prob-info"></li>
+            <li data-role="list-divider"><b>Dotyczy</b></li>
+            <li data-icon="false" id="prob-who"></li>
+        </ul>
+        </div>
+        <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a id="gomap" href="#map-page" data-icon="arrow-r"data-theme="a">Przejdź do mapy</a></li>
+                        <li><a id="gopost" href="#post" data-icon="arrow-r"data-theme="a">Strona urzędu</a></li>
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+<!-- ONE PROBLEM END-->
+
+
+
 	
 	
 

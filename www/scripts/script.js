@@ -1,4 +1,9 @@
 
+
+
+var input = document.getElementById('searchonmap');
+
+
 $(document).on("pageshow", "#map-page", function () {
     var input = document.getElementById('searchonmap');
     input.value = 'Kraków,';
@@ -162,6 +167,11 @@ $(document).on("pageshow", "#map-page", function () {
 
 });
 
+var clearbutton = document.getElementById('clearm') ;
+clearbutton.addEventListener('click', function(){
+    setTimeout(clear, 100)
+
+}); 
 
 /*HERE IS  A NOTES SCRIPTS*/
 
@@ -374,6 +384,11 @@ app.initialize();
 
 /*HERE IS  A END NOTES */
 
+var trgtvalue='';
+var trgurl='';
+var link = document.getElementById('gopage');
+link.addEventListener('click',loadurl);
+
 
 /*HERE IS  A START OF POSTS  */
 
@@ -397,7 +412,6 @@ ajaxget("http://192.168.223.1/server/get_json.php", function(data){
                 });
                 html += '</ul>';
                 $('#postlist-wrapper').html(html);
-
       
         $('.keyval').each(function(){
             this.addEventListener('click', function(){
@@ -438,9 +452,7 @@ ajaxget("http://192.168.223.1/server/get_json.php", function(data){
 
 
     });
-
   }
-
 function ajaxget(url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
@@ -458,5 +470,18 @@ function ajaxget(url, callback) {
     };
         xhr.open("GET", url, true);
         xhr.send();
-
 };
+
+
+function loadurl() {
+    var urlref = cordova.InAppBrowser.open(trgturl, '_blank', 'location=yes');
+    urlref.addEventListener('loadstart', function () { alert(event.url); });
+
+}
+
+function clear() {
+    // console.log("event");
+    input.value = 'Kraków, Polska';
+    $('#map-page').find('.ui-btn-active').removeClass('ui-btn-active ui-focus');
+
+}
