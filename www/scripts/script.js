@@ -447,7 +447,7 @@ ajaxget("http://192.168.223.1/server/get_json.php", function(data){
        $('<p>' + data.posts[pom].else + '</p>').appendTo('#elseinf');
         trgtvalue = ''+ data.posts[pom].title;
         trgtvalue = trgtvalue.replace(/<\/br>/g,'');
-
+			//concat of link
         trgturl ='http:\/\/'+data.posts[pom].link;
 
 
@@ -471,6 +471,80 @@ function ajaxget(url, callback) {
         xhr.open("GET", url, true);
         xhr.send();
 };
+
+/* HERE IS  A END OF POSTS  */
+/* HERE IS  A START OF PROBLEMS  */
+
+
+
+$(document).on( "pageshow", "#problemlist", function() {
+
+ajaxget("http://192.168.223.1/server/get_spr.php", function(data){
+      var htmls = '<ul data-role="listview" class="ui-listview">';
+  $.each(data.problems,function(k,v){//keyvalue
+                    htmls += '<li class="outstanding ui-btn ui-btn-icon-right ui-li ui-li-has-alt ui-first-child ui-btn-up-c" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div"  data-theme="c">';
+                    htmls +='<div class="ui-btn-inner ui-li ui-li-has-alt">'
+                    htmls +='<div class="ui-btn-text">'
+                    htmls += '<a href="#problem" class="ui-link-inherit keyvalp" data-keyvalp='+v.id+'>'
+                    htmls += '<h3 class="ui-li-heading">' + v.title + '</h3>';
+                    htmls += '<p class="ui-li-desc">' + v.description + '</p>';
+                    htmls += '</a>';
+                    htmls +='</div>';
+                    htmls +='</div>';
+                    htmls += '</li>';    
+                                
+                });
+                htmls += '</ul>'; 
+               
+                $('#problemlist-wrapper').html(htmls);
+      
+        $('.keyvalp').each(function(){
+            this.addEventListener('click', function(){
+         loadProblem(this.getAttribute("data-keyvalp"));
+        });
+        });
+       
+});
+});
+ function loadProblem(id){
+   var pom= parseInt(id);
+
+   $('#problem-wrapper h4').remove();
+   $('#prob-doc-link input').remove();
+   $('#prob-post').empty();
+   $('#prob-doc-download').empty();
+   $('#prob-description').empty();
+   $('#prob-documents').empty();
+   $('#prob-info').empty();
+   $('#prob-who').empty();
+ //localhttp://192.168.223.1/server/get_spr.php
+
+   ajaxget("http://192.168.223.1/server/get_spr.php", function (data) {
+       $('<h4>'+ data.problems[pom].title + '</h4>').prependTo('#problem-wrapper');
+       $('<p>' + data.problems[pom].post + '</p>').appendTo('#prob-post');
+       $('<p>' + data.problems[pom].download + '</p>').appendTo('#prob-doc-download');
+       $('<p>' + data.problems[pom].description + '</p>').appendTo('#prob-description');
+       $('<p>' + data.problems[pom].documents + '</p>').appendTo('#prob-documents');
+       $('<p>' + data.problems[pom].else + '</p>').appendTo('#prob-info');
+       $('<p>' + data.problems[pom].who + '</p>').appendTo('#prob-who');
+      var postid = data.problems[pom].postid
+       
+
+        if(data.problems[pom].link==""){
+           return;
+       }else{
+           $('<input type="text" value="'+data.problems[pom].link+'">').appendTo('#prob-doc-link');
+       }
+
+   var gopost = document.getElementById('gopost');
+		gopost.addEventListener('click',loadPost(data.problems[pom].postid));
+  
+    });
+
+
+  }
+/*HERE IS  A END OF PPROBLEMS */
+
 
 
 function loadurl() {
