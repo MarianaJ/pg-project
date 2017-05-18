@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>WAU</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dark.min.css">
+    <link rel="stylesheet" href="jquery.mobile-1.3.2/jquery.mobile.structure-1.3.2.min.css">
+    <script src="jquery-1.9.1.min.js"></script>
+    <script src="jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyC4jYphqNX5squ3UPJ5wZC9W32_ohsbcUM&libraries=places&calback=initmap"></script>
+    <script async defer src="scripts/web-sql-storage.js"></script>
+    <script async defer src="scripts/script.js"></script> 
+    <script type="text/javascript" src="cordova.js"></script>
+</head>
+
+<body>
+    <!-- MAIN PAGE START -->
+    <div id="home" data-role="page" data-title="Start">
+        <div data-role="header">
+            <h1>Start</h1>
+        </div>
+        <div data-role="content">
+            <div id="logo"><img src="images/logo.png" alt=""></div>
+            <div data-role="controlgroup" data-type="vertical">
+                <a href="#postlist" data-role="button">Urzędy</a>
+                <a href="#notes" data-role="button">Twoje notaki</a>
+                <a href="#map-page" data-role="button">Znajdź na mapie</a>
+                <a href="#problemlist" data-role="button">Najczęstsze problemy </a>
+            </div>
+        </div>
+    </div>
+    <!--  MAIN PAGE END -->
+    <!--FIND ON MAP -->
+    <div data-role="page" id="map-page">
+        <div data-role="panel" id="mappanel" data-display="overlay">
+            <label for="user">Miasto</label>
+            <input type="text" id="searchonmap" name="searchcity" value="Kraków,">
+            <div class="list">
+            </div>
+            <a href="#home" data-rel="close" data-role="button" data-icon="back" data-theme="a">Zamknij</a>
+
+        </div>
+        <div data-role="header" data-theme="a">
+            <h1>Znajdź na mapie</h1>
+            <a href="#home" data-icon="home" data-iconpos="notext" data-theme="a">Start</a>
+        </div>
+        <div role="content" class="ui-content" id="map-area">
+            <!-- map will be here -->
+        </div>
+
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a  class="ui-btn"href="#postlist" data-icon="info" data-theme="a">Urzędy</a></li>
+                    <li><a  class="ui-btn ui-btn-inline ui-btn-b" href="#" id="clearm" data-icon="refresh" data-theme="a" data-transition="fade">Wyczyść wyszukiwanie</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- FIND ON MAP END-->
+    
+    <!--NOTES START-->
+    <div data-role="page" id="notes">
+        <div data-role="header" data-position="fixed">
+            <a href="#home" data-icon="back" data-role="button" class="ui-btn-left" data-theme="a">Wróć</a>
+            <h1>Twoje notatki</h1>
+            <a href="#add" data-icon="plus" data-iconpos="notext" class="ui-btn-right" data-transition="">New</a>
+        </div>
+        <div data-role="content">
+            <ul data-role="listview" class="todo-listview"></ul>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="content">
+
+            </div>
+        </div>
+    </div>
+
+    <!--NOTES END-->
+    <!-- ADD PAGE START -->
+    <div data-role="page" id="add">
+        <div data-role="header" data-position="fixed">
+            <a href="#view" data-icon="back" data-role="button" class="ui-btn-left" data-theme="a" transition="fade">Wróć</a>
+            <h1>Dodaj notatkę</h1>
+        </div>
+        <div data-role="content">
+            <form method="" action="" id="insert">
+                <label for="title">Tytuł:</label>
+                <input type="text" name="title" id="text-basic" value="">
+
+                <label for="description">Opis:</label>
+                <textarea cols="40" rows="8" name="description" id="text-basic"></textarea>
+            </form>
+            <a href="" data-role="button" class="add" data-transition="fade">Dodaj</a>
+        </div>
+    </div>
+    <!-- NOTE VIEW END -->
+
+
+    <!-- NOTE VIEW START -->
+    <div data-role="page" id="view">
+        <div data-role="header" data-position="fixed">
+            <a href="#notes" data-icon="back" data-role="button" class="ui-btn-left" data-theme="a">Wróć</a>
+            <h1>View</h1>
+            <a href="#add" data-icon="plus" data-iconpos="notext" class="ui-btn-right" data-transition="fade"></a>
+        </div>
+        <div data-role="content">
+            <form id="edit">
+                <input type="hidden" id="id" value="" name="id" />
+                <input type="text" id="title" value="" data-id="" class="target" name="title" />
+                <textarea id="description" data-id="" class="target" name="description"></textarea>
+            </form>
+            <a href="#notes" data-role="button" class="delete">Usuń</a>
+        </div>
+    </div>
+    <!-- NOTE VIEW END -->
+
+<!--LIST OF POSTS START-->
+    <div id="postlist" data-role="page" data-title="Urzędy">
+        <div data-role="header">
+            <h1>Urzędy</h1>
+            <a href="#home" data-icon="home" data-iconpos="notext" data-theme="a">Start</a>
+        </div>
+        <div data-role="content" class="ui-content" id="postlist-wrapper">
+            <!--list will be here-->
+        </div>
+
+    </div>
+
+
+    <!--LIST OF POSTS END-->
+    
+    <!-- ONE POST  START -->
+    <div id="post" data-role="page">
+            <div data-role="header">
+                <h1>Opis</h1>
+                <a href="#postlist" data-icon="back" data-theme="a">Wróć</a>
+            </div>
+			
+<!--one post info-->			
+ <div data-role="content" id="post-wrapper">
+    <ul  id="post-list" data-role="listview" data-inset="true" data-divider-theme="a">
+        <li data-role="list-divider"><b>Adres</b></li>
+        <li data-icon="false"><a href="#" id='adres'></a></li>
+        <li data-role="list-divider"><b>Godziny otwarcia</b></li>
+        <li data-icon="false"><a href="#" id='openhours'></a></li>
+        <li data-role="list-divider"><b>E-mail</b></li>
+        <li data-icon="false"><a href="#" id='email'></a></li>
+        <li data-role="list-divider"><b>Strona urzędu</b></li>
+        <li data-icon="false"><a id='pageurl'></a></li>
+        <li data-role="list-divider"><b>Telefon kontaktowy</b></li>
+        <li data-icon="false"><a href="#" id='phone1'></a></li>
+        <li data-icon="false"><a href="#" id='phone2'></a></li>
+        <li data-role="list-divider"><b>Pozostałe informacje</b></li>
+        <li data-icon="false"><a href="#" id='elseinf'></a></li>
+    </ul>
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a id="gomap" href="#map-page" data-icon="arrow-r"data-theme="a">Przejdź do mapy</a></li>
+                        <li><a id="gopage" href="#" data-icon="arrow-r"data-theme="a">Strona urzędu</a></li>                    
+                    </ul>
+                </div>
+            </div>
+        </div>
+<!-- POST LIST END-->
+       
+<!--PROBLEM LIST START-->
+<div id="problemlist" data-role="page" data-title="Problemy">
+    <div data-role="header">
+        <h3>Wybrane problemy</h3>
+        <a href="#home" data-icon="home" data-iconpos="notext" data-theme="a">Start</a>
+    </div>
+    <div data-role="content" class="ui-content" id="problemlist-wrapper">
+    </div>
+</div>
+<!-- PROBLEM LIST END-->
+
+<!-- ONE PROBLEM START-->
+<div id="problem" data-role="page">
+    <div data-role="header">
+        <h1></h1>
+        <a href="#problemlist" data-icon="back" data-theme="a">Wróć</a>
+    </div>
+    <div data-role="content" id="problem-wrapper">
+        <ul id="problem-list" data-role="listview" data-inset="true" data-divider-theme="a">
+            <li data-role="list-divider"><b>Jednostka odpowiedzialna</b></li>
+            <li data-icon="false"id="prob-post"></li>
+            <li data-role="list-divider"><b>Dokumenty do pobrania</b></li>
+            <li data-icon="false"id="prob-doc-download"></li>
+            <li data-icon="false"id="prob-doc-link"></li>
+            <li data-role="list-divider"><b>Opis sprawy</b></li>
+            <li data-icon="false" id="prob-description"></li>
+            <li data-role="list-divider"><b>Wymagane dokumenty</b></li>
+            <li data-icon="false"id="prob-documents"></li>
+            <li data-role="list-divider"><b>Uwagi</b></li>
+            <li data-icon="false" id="prob-info"></li>
+            <li data-role="list-divider"><b>Dotyczy</b></li>
+            <li data-icon="false" id="prob-who"></li>
+        </ul>
+        </div>
+        <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a id="gomap" href="#map-page" data-icon="arrow-r"data-theme="a">Przejdź do mapy</a></li>
+                        <li><a id="gopost" href="#post" data-icon="arrow-r"data-theme="a">Strona urzędu</a></li>
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+<!-- ONE PROBLEM END-->
+
+
+
+	
+	
+
+</body>
+
+</html>

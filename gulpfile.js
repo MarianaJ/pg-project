@@ -32,7 +32,7 @@ npm install browser-sync --save-dev
 */
 gulp.task("server", function() {
     browserSync.init({
-        server: "src/"
+        server: "www/"
     });
 });
    
@@ -42,8 +42,8 @@ NASŁUCHIWANIE NA ZMIANY
 */
 gulp.task("watch", function() {
 
-    gulp.watch("src/sass/**/*.scss",["css"]);
-    gulp.watch(["src/*.html","src/**/*.js"],browserSync.reload);
+    gulp.watch("www/sass/**/*.scss",["css"]);
+    gulp.watch(["www/*.html","www/**/*.js","www/css/*.css"],browserSync.reload);
     
 
 });
@@ -65,7 +65,7 @@ gulp.task("clean", function() {
 
 
 gulp.task("html",function() {
-    gulp.src("src/*.html")
+    gulp.www("www/*.html")
         .pipe(useref())
         .pipe(gulpif("*.js",uglify())  )
         .pipe(gulp.dest("dist/"));
@@ -78,7 +78,7 @@ npm install --save-dev gulp-imagemin
 
 */
 gulp.task("images", function() {
-   return gulp.src ("dist/images/*",{
+   return gulp.www ("dist/images/*",{
     base: "dist"
     
     })
@@ -89,8 +89,8 @@ gulp.task("images", function() {
 });
 
 gulp.task("copy",function() {
-  return  gulp.src(["src/css/**/*.css", "src/images/*", "src/uploads/*"],{
-    base: "src"
+  return  gulp.www(["www/css/**/*.css", "www/images/*", "www/uploads/*"],{
+    base: "www"
     })
     .pipe(gulp.dest("dist/"));
 });
