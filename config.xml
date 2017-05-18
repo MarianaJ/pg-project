@@ -3,12 +3,15 @@
     <name>wau</name>
     <description>
        Projekt wirtualny asystent urzędowy   </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="nowy_xx@o2.pl" href="">
+       R.N. &amp; M.Y.
     </author>
     <content src="index.html" />
-    <plugin name="cordova-plugin-whitelist" />
+    <icon src="icon.png" />
+    <plugin name ="cordova-plugin-whitelist" />
     <plugin name ="cordova-plugin-geolocation"/>
+    <plugin name ="cordova-plugin-websql"/>
+    <plugin name ="cordova-plugin-inappbrowser" />
     <plugin name ="cordova-plugin-googlemaps">
      <param name="API_KEY_FOR_ANDROID" value="AIzaSyAqYvGdKSQLqaIR0YRA7akJlVQbcCzF61w" />
     </plugin>

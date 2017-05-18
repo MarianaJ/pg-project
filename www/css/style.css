@@ -47,4 +47,19 @@
 #searchonmap{
 width: 55%
 }
+#post-wrapper h4 {
+    text-align: center;
+
+}
+#problem-wrapper h4 {
+    text-align: center;
+
+}
+#prob-doc-link{
+    text-align: center;
+}
+#prob-doc-link input{
+    width: 80%;
+}
+
 

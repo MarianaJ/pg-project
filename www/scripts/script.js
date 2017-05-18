@@ -6,7 +6,7 @@ var input = document.getElementById('searchonmap');
 
 $(document).on("pageshow", "#map-page", function () {
     var input = document.getElementById('searchonmap');
-    input.value = 'Kraków,';
+     input.value =''+ trgtvalue + ' Kraków, Polska';
     var defaultLatLng = new google.maps.LatLng(50.0685685, 19.955005);
     if (navigator.geolocation) {
         function success(pos) {
@@ -172,6 +172,8 @@ clearbutton.addEventListener('click', function(){
     setTimeout(clear, 100)
 
 }); 
+
+/*END OF MAPSS*/
 
 /*HERE IS  A NOTES SCRIPTS*/
 
@@ -465,7 +467,8 @@ function ajaxget(url, callback) {
                     return;
                 }
                 callback(data);
-            // console.log(data);
+            }  else {
+                alert('Sprawdź połączenie i spróbuj ponownie');
             }
     };
         xhr.open("GET", url, true);
