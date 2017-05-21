@@ -397,7 +397,7 @@ link.addEventListener('click',loadurl);
 $(document).on( "pageshow", "#postlist", function() {
 
 
-ajaxget("http://192.168.223.1/server/get_json.php", function(data){
+ajaxget("http://nowyxx.cba.pl/public_html/server/get_json.php", function(data){
       var html = '<ul data-role="listview" class="ui-listview">';
   $.each(data.posts,function(k,v){//keyvalue
                 
@@ -438,7 +438,7 @@ ajaxget("http://192.168.223.1/server/get_json.php", function(data){
    $('#phone2').empty();
    $('#elseinf').empty();
 
-   ajaxget("http://192.168.223.1/server/get_json.php", function (data) {
+   ajaxget("http://nowyxx.cba.pl/public_html/server/get_json.php", function (data) {
        $('<h4>' + data.posts[pom].title + '</h4>').prependTo('#post-wrapper');
        $('<p>' + data.posts[pom].email + '</p>').appendTo('#email');
        $('<p>' + data.posts[pom].address + '</p>').appendTo('#adres');
@@ -482,7 +482,7 @@ function ajaxget(url, callback) {
 
 $(document).on( "pageshow", "#problemlist", function() {
 
-ajaxget("http://192.168.223.1/server/get_spr.php", function(data){
+ajaxget("http://nowyxx.cba.pl/public_html/server/get_spr.php", function(data){
       var htmls = '<ul data-role="listview" class="ui-listview">';
   $.each(data.problems,function(k,v){//keyvalue
                     htmls += '<li class="outstanding ui-btn ui-btn-icon-right ui-li ui-li-has-alt ui-first-child ui-btn-up-c" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div"  data-theme="c">';
@@ -520,9 +520,9 @@ ajaxget("http://192.168.223.1/server/get_spr.php", function(data){
    $('#prob-documents').empty();
    $('#prob-info').empty();
    $('#prob-who').empty();
- //localhttp://192.168.223.1/server/get_spr.php
 
-   ajaxget("http://192.168.223.1/server/get_spr.php", function (data) {
+
+   ajaxget("http://nowyxx.cba.pl/public_html/server/get_spr.php", function (data) {
        $('<h4>'+ data.problems[pom].title + '</h4>').prependTo('#problem-wrapper');
        $('<p>' + data.problems[pom].post + '</p>').appendTo('#prob-post');
        $('<p>' + data.problems[pom].download + '</p>').appendTo('#prob-doc-download');
